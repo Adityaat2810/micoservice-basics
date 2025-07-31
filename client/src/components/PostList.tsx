@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CreateComment from "./CreateComment";
+import DisplayComments from "./DisplayComments";
 
 interface Post {
   id: string;
@@ -39,6 +40,7 @@ export default function PostList() {
         <div className="card-body">
           <h3>{post.title.title}</h3>
           <CreateComment  postId={post.id}/>
+          <DisplayComments postId={post.id}/>
         </div>
       </div>
     );
