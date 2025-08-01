@@ -3,11 +3,19 @@ import { useEffect, useState } from "react";
 import CreateComment from "./CreateComment";
 import DisplayComments from "./DisplayComments";
 
+// Define the Comment interface
+interface Comment {
+  id: string;
+  content: string;
+}
+
+// Update Post interface to include comments
 interface Post {
   id: string;
   title: {
     title: string;
   };
+  comments: Comment[];
 }
 
 interface PostsResponse {
@@ -19,7 +27,7 @@ export default function PostList() {
 
   const fetchPost = async () => {
     try {
-      const res = await axios.get<PostsResponse>('http://localhost:4000/posts');
+      const res = await axios.get('http://localhost:4002/posts');
       setPosts(res.data);
     } catch (error) {
       console.error('Error fetching posts:', error);
@@ -39,8 +47,8 @@ export default function PostList() {
       >
         <div className="card-body">
           <h3>{post.title.title}</h3>
-          <CreateComment  postId={post.id}/>
-          <DisplayComments postId={post.id}/>
+          <DisplayComments comments={post.comments} />
+          <CreateComment postId={post.id} />
         </div>
       </div>
     );
