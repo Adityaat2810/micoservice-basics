@@ -7,8 +7,18 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+const events  = [];
+
+// added endpoint to retrieve all events
+app.get('/events', (req, res) => {
+    res.send(events);
+});
+
+
 app.post('/events', async (req, res) => {
     const event = req.body;
+    console.log('Received event:', event);
+    events.push(event);
 
     const services = [
         'http://localhost:4000/events',
