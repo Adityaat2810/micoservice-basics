@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: posts-depl
+  name: moderation-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: posts
+      app: moderation
   template:
     metadata:
       labels:
-        app: posts
+        app: moderation
     spec:
       containers:
-        - name: posts
-          image: adityasaini/posts:latest  # adityasaini/posts:@latest
+        - name: moderation
+          image: adityasaini/moderation:latest
           imagePullPolicy: Never
 
 ---
@@ -22,13 +22,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: post-clusterip-srv
+  name: moderation-srv
 spec:
   selector:
-    app: posts
+    app: moderation
   type: ClusterIP
   ports:
-    - name: posts
+    - name: moderation
       protocol: TCP
-      port: 4000
-      targetPort: 4000
+      port: 4003
+      targetPort: 4003

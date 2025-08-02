@@ -68,7 +68,7 @@ app.listen(4002, async () => {
   console.log(`!litening at 4002`);
   // whenver service come online after failing
 
-  await axios.get('http://localhost:4005/events')
+  await axios.get('http://events-srv:4005/events')
     .then(response => {
       const events = response.data;
       events.forEach(event => {

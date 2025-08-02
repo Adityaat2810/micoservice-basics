@@ -1,3 +1,5 @@
+console.log('***** POSTS SERVICE BUILD ' + new Date().toISOString());
+
 const express = require('express')
 const { randomBytes } = require('crypto')
 const bodyParser = require('body-parser');
@@ -22,13 +24,23 @@ app.post('/posts', async (req, res)=>{
         id, title
     }
 
-    await axios.post('http://localhost:4005/events', {
-        type:"PostCreated",
-        data:{
-            id,
-            title
-        }
+    try{
+        await axios.post('http://events-srv:4005/events', {
+            type:"PostCreated",
+            data:{
+                id,
+                title
+         }
     })
+    }catch(error){
+        console.error('Axios error:', error.toString());
+        console.error('Error code:', error.code);
+        console.error('Error config:', error.config);
+        if (error.response) {
+        console.error('Response:', error.response.status, error.response.data);
+  }
+    }
+
 
     res.status(201).send(posts[id]);
 })
