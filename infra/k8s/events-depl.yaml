@@ -16,3 +16,19 @@ spec:
         - name: events
           image: adityasaini/events:0.0.1
           imagePullPolicy: Never
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: events-srv
+spec:
+  selector:
+    app: events
+  type: ClusterIP
+  ports:
+    - name: events
+      protocol: TCP
+      port: 4005
+      targetPort: 4005
