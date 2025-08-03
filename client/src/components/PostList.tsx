@@ -27,7 +27,7 @@ export default function PostList() {
 
   const fetchPost = async () => {
     try {
-      const res = await axios.get('http://localhost:4002/posts');
+      const res = await axios.get('http://posts.com/posts');
       setPosts(res.data);
     } catch (error) {
       console.error('Error fetching posts:', error);
